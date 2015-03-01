@@ -1,5 +1,4 @@
 # Directadmin-Installer
-Directadmin Install
 
 <br>
 
