@@ -15,16 +15,14 @@
 ###############################################################################
 
 ### Added By MTimer www.mtimer.net ###
-yum -y update
+#yum -y update
 echo "multilib_policy=all" >> /etc/yum.conf
 yum -y install openssl098e glibc.i686 libstdc++.i686
 yum -y install dos2unix patch screen unzip lftp tar quota autoconf automake libtool which wget gcc gcc-c++ flex bison make bind bind-libs bind-utils openssl openssl-devel perl libaio libcom_err-devel libcurl-devel gd zlib-devel zip libcap-devel cronie bzip2 db4-devel cyrus-sasl-devel perl-ExtUtils-Embed libstdc++.so.6 libnspr4.so libssl.so.6
 
 ln -s /usr/lib/libssl.so /usr/lib/libssl.so.6
 ln -s /usr/lib/libcrypto.so /usr/lib/libcrypto.so.6
-ln -sf /usr/lib64/libexpat.so /usr/lib/libexpat.so
-ln -sf /usr/lib64/libm.so /usr/lib/libm.so
-ln -sf /usr/lib64/libssl.so /usr/lib/libssl.so
+
 
 echo "Download DA 1.44.3 scripts ...";
 mkdir -p /usr/local/directadmin
