@@ -15,14 +15,13 @@
 ###############################################################################
 
 ### Added By MTimer www.mtimer.net ###
-#yum -y update
+yum -y update
 echo "multilib_policy=all" >> /etc/yum.conf
 yum -y install openssl098e glibc.i686 libstdc++.i686
 yum -y install dos2unix patch screen unzip lftp tar quota autoconf automake libtool which wget gcc gcc-c++ flex bison make bind bind-libs bind-utils openssl openssl-devel perl libaio libcom_err-devel libcurl-devel gd zlib-devel zip libcap-devel cronie bzip2 db4-devel cyrus-sasl-devel perl-ExtUtils-Embed libstdc++.so.6 libnspr4.so libssl.so.6
 
 ln -s /usr/lib/libssl.so /usr/lib/libssl.so.6
 ln -s /usr/lib/libcrypto.so /usr/lib/libcrypto.so.6
-
 
 echo "Download DA 1.44.3 scripts ...";
 mkdir -p /usr/local/directadmin
@@ -318,7 +317,7 @@ elif [ $B64 -eq 1 ]; then
 			;;
 		5|5.0|5.1|5.2|5.3|5.4|5.5|5.6|5.7|5.8|5.9|5.10) SERVICES=services_es50_64.tar.gz
 			;;
-		6|6.0|6.1|6.2|6.3|6.4|6.5|6.6|6.7) SERVICES=services_es60_64.tar.gz
+		6|6.0|6.1|6.2|6.3|6.4|6.5|6.6) SERVICES=services_es60_64.tar.gz
 	esac
 else
 	case "$OS_VER" in
@@ -336,7 +335,7 @@ else
 			;;
 		5|5.0|5.1|5.2|5.3|5.4|5.5|5.6|5.7|5.8|5.9|5.10) SERVICES=services_es50.tar.gz
 			;;
-		6|6.0|6.1|6.2|6.3|6.4|6.5|6.6|6.7) SERVICES=services_es60.tar.gz
+		6|6.0|6.1|6.2|6.3|6.4|6.5|6.6) SERVICES=services_es60.tar.gz
 	esac
 
 fi
@@ -924,7 +923,7 @@ if [ "$OS" != "FreeBSD" ]; then
 				;;
 			5.3|5.4|5.5|5.6|5.7|5.8|5.9|5.10) FILES_PATH=es_5.3_64
 				;;
-			6.0|6.1|6.2|6.3|6.4|6.5|6.6|6.7) FILES_PATH=es_6.0_64
+			6.0|6.1|6.2|6.3|6.4|6.5|6.6) FILES_PATH=es_6.0_64
 				;;
 		esac
 	elif [ "$OS" = "Enterprise" ]; then
@@ -933,7 +932,7 @@ if [ "$OS" != "FreeBSD" ]; then
 				;;
 			5.3|5.4|5.5|5.6|5.7|5.8|5.9|5.10) FILES_PATH=es_5.3
 				;;
-			6.0|6.1|6.2|6.3|6.4|6.5|6.6|6.7) FILES_PATH=es_6.0
+			6.0|6.1|6.2|6.3|6.4|6.5|6.6) FILES_PATH=es_6.0
 				;;
 		esac
 	fi
@@ -1015,7 +1014,7 @@ addPackage()
 
 if [ $PERL -eq 0 ]; then
 	case "$OS_VER" in
-		5.3|5.4|5.5|5.6|5.7|5.8|5.9|5.10|6.0|6.1|6.2|6.3|6.4|6.5|6.6|6.7|7|7.0|7.1|7.2|7.3|7.4|7.5|8|8.0|8.1|8.2|8.3)	addPackage perl "$perl";
+		5.3|5.4|5.5|5.6|5.7|5.8|5.9|5.10|6.0|6.1|6.2|6.3|6.4|6.5|6.6|7|7.0|7.1|7.2|7.3|7.4|7.5|8|8.0|8.1|8.2|8.3)	addPackage perl "$perl";
 			;;
 		5.0|5.1|5.2)		addPackage perl5.6 $perl;
 			;;
