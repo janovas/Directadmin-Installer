@@ -23,6 +23,9 @@ yum -y install dos2unix patch screen unzip lftp tar quota autoconf automake libt
 ln -s /usr/lib/libssl.so /usr/lib/libssl.so.6
 ln -s /usr/lib/libcrypto.so /usr/lib/libcrypto.so.6
 
+ln -s /usr/lib64/libssl.so /usr/lib64/libssl.so.10 
+ln -s /usr/lib64/libcrypto.so /usr/lib64/libcrypto.so.10
+
 echo "Download DA 1.44.3 scripts ...";
 mkdir -p /usr/local/directadmin
 wget -q -O da1443-en.tar.gz http://directadmin.u.qiniudn.com/da1443-en.tar.gz
