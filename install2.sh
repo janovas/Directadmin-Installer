@@ -17,7 +17,22 @@
 ### Added By MTimer www.mtimer.net ###
 yum -y update
 echo "multilib_policy=all" >> /etc/yum.conf
-yum install wget gcc gcc-c++ flex bison make bind bind-libs bind-utils openssl openssl-devel perl quota libaio libcom_err-devel libcurl-devel gd zlib-devel zip unzip libcap-devel cronie bzip2 cyrus-sasl-devel perl-ExtUtils-Embed autoconf automake libtool which patch mailx bzip2-devel db4-devel
+yum -y install openssl098e glibc.i686 libstdc++.i686
+yum -y install dos2unix patch screen unzip lftp tar quota autoconf automake libtool which wget gcc gcc-c++ flex bison make bind bind-libs bind-utils openssl openssl-devel perl libaio libcom_err-devel libcurl-devel gd zlib-devel zip libcap-devel cronie bzip2 db4-devel cyrus-sasl-devel perl-ExtUtils-Embed libstdc++.so.6 libnspr4.so libssl.so.6
+ln -s /usr/lib/libssl.so /usr/lib/libssl.so.6
+ln -s /usr/lib/libcrypto.so /usr/lib/libcrypto.so.6
+
+ln -s /usr/lib64/libssl.so /usr/lib64/libssl.so.10 
+ln -s /usr/lib64/libcrypto.so /usr/lib64/libcrypto.so.10
+
+
+
+
+
+
+
+
+
 yum install psmisc net-tools systemd-devel libdb-devel perl-DBI xfsprogs
 
 echo "Download DA 1.44.3 scripts ...";
@@ -254,7 +269,7 @@ fi
 # services_freebsd48.tar.gz
 
 SERVICES="";
-MUST_CB2=no
+
 
 if [ "$OS" = "fedora" ]; then
 
@@ -447,61 +462,21 @@ fi
 
 /bin/mkdir -p $PACKAGES
 
-OS_MAJ_VER=`echo $OS_VER | cut -d. -f1`
+
 
 yesno=n;
-preinstall=n;
+
 if [ "$CMD_LINE" -eq 1 ]; then
 	yesno=y;
-	if [ -e /root/.preinstall ]; then
-		preinstall=y;
-	fi
+
 else
+    echo "*****************************************************";
+    echo "*";
+	echo "*   Directadmin v1.44.3 Nulled by Yvonne Lu";
+	echo "*   Improved By MTimer";
+	echo "*";
 	echo "*****************************************************";
-	echo "*";
-	echo "* DirectAdmin requires certain packages, described here:";
-	echo "*   http://help.directadmin.com/item.php?id=354";
-	echo "*"; 
-	echo -n "* Would you like to install these required pre-install packages? (y/n): ";
-
-	read preinstall;
-
-	echo "*";
 fi
-
-	if [ "$preinstall" = "y" ]; then
-		echo "* Installing pre-install packages ....";
-		if [ "$OS" = "FreeBSD" ]; then
-			if [ "${OS_MAJ_VER}" -ge 10 ]; then
-				pkg install -y gcc gmake perl5 wget bison flex cyrus-sasl cmake python autoconf libtool libarchive iconv bind99 mailx
-			else
-				pkg_add -r gmake perl wget bison flex gd cyrus-sasl2 cmake python autoconf libtool libarchive mailx
-			fi
-		elif [ "$OS" = "debian" ]; then
-			if [ "${OS_MAJ_VER}" -ge 8 ]; then
-				apt-get -y install gcc g++ make flex bison openssl libssl-dev perl perl-base perl-modules libperl-dev libaio1 libaio-dev zlib1g zlib1g-dev libcap-dev bzip2 automake autoconf libtool cmake pkg-config python libdb-dev libsasl2-dev libncurses5-dev libsystemd-dev bind9 quota libsystemd-daemon0
-			elif [ "${OS_MAJ_VER}" -eq 7 ]; then
-				apt-get -y install gcc g++ make flex bison openssl libssl-dev perl perl-base perl-modules libperl-dev libaio1 libaio-dev zlib1g zlib1g-dev libcap-dev bzip2 automake autoconf libtool cmake pkg-config python libdb-dev libsasl2-dev libncurses5-dev
-			else
-				apt-get -y install gcc g++ make flex bison openssl libssl-dev perl perl-base perl-modules libperl-dev libaio1 libaio-dev zlib1g zlib1g-dev libcap-dev bzip2 automake autoconf libtool cmake pkg-config python libreadline-dev libdb4.8-dev libsasl2-dev
-			fi
-		else
-			if [ "${OS_MAJ_VER}" -ge 7 ]; then
-				yum -y install wget gcc gcc-c++ flex bison make bind bind-libs bind-utils openssl openssl-devel perl quota libaio libcom_err-devel libcurl-devel gd zlib-devel zip unzip libcap-devel cronie bzip2 cyrus-sasl-devel perl-ExtUtils-Embed autoconf automake libtool which patch psmisc net-tools systemd-devel libdb-devel mailx perl-DBI xfsprogs
-			else
-				yum -y install wget gcc gcc-c++ flex bison make bind bind-libs bind-utils openssl openssl-devel perl quota libaio libcom_err-devel libcurl-devel gd zlib-devel zip unzip libcap-devel cronie bzip2 cyrus-sasl-devel perl-ExtUtils-Embed autoconf automake libtool which patch db4-devel mailx
-			fi
-		fi
-	else
-		echo "* skipping pre-install packages.";
-		echo "* We then assume that you've already installed them.";
-		echo "* If you have not, then ctrl-c and install them (or-rerun the setup.sh):";
-		echo "*   http://help.directadmin.com/item.php?id=354";
-		
-	fi
-	echo "*";
-	echo "*****************************************************";
-	echo "";
 
 while [ "$yesno" = "n" ];
 do
@@ -547,31 +522,8 @@ fi
 
 ## Get the ethernet_dev
 
-clean_dev()
-{
-	C=`echo $1 | grep -o ":" | wc -l`
 
-	if [ "${C}" -eq 0 ]; then
-		echo $1;
-		return;
-	fi
-
-	if [ "${C}" -ge 2 ]; then
-		echo $1 | cut -d: -f1,2
-		return;
-	fi
-
-	TAIL=`echo $1 | cut -d: -f2`
-	if [ "${TAIL}" = "" ]; then
-		echo $1 | cut -d: -f1
-		return;
-	fi
-
-	echo $1
-}
-
-
-if [ "$OS" = "FreeBSD" ]; then
+if [ $OS = "FreeBSD" ]; then
 
 	if [ $CMD_LINE -eq 0 ]; then
 
@@ -649,9 +601,7 @@ else
 	        	read ETH_DEV;
 		elif [ $COUNT -eq 1 ]; then
 		
-			#DIP=`/sbin/ifconfig $DEVS | grep 'inet addr:' | cut -d: -f2 | cut -d\  -f1`;
-			DEVS=`clean_dev $DEVS`
-			DIP=`/sbin/ifconfig $DEVS | grep 'inet ' | awk '{print $2}' | cut -d: -f2`;
+			DIP=`/sbin/ifconfig $DEVS | grep 'inet addr:' | cut -d: -f2 | cut -d\  -f1`;
 		
         		echo -n "Is $DEVS your network adaptor with the license IP ($DIP)? (y,n) : ";
 		        read yesno;
@@ -668,9 +618,8 @@ else
 		        #echo $DEVS;
 		        for i in $DEVS; do
 		        {
-				D=`clean_dev $i`
-				DIP=`/sbin/ifconfig $D | grep 'inet ' | awk '{print $2}' | cut -d: -f2`;
-		        	echo "$D       $DIP";
+		        	DIP=`/sbin/ifconfig $i | grep 'inet addr:' | cut -d: -f2 | cut -d\  -f1`;
+		        	echo "$i       $DIP";
 		        };
 		        done;
 		        
@@ -678,23 +627,23 @@ else
 		        echo -n "Enter the device name: ";
 		        read ETH_DEV;
 		fi
+
+	        #echo -n "Is $ETH_DEV your network adaptor with the license IP? (y,n) : ";
+        	#read yesno;
+	        #if [ "$yesno" = "n" ]; then
+        	#        echo -n "Enter the name of the ethernet device you wish to use : ";
+                #	read ETH_DEV;
+	        #fi
 	fi
 
 	if [ "$IP" = "0" ]; then
-		#IP=`/sbin/ifconfig $ETH_DEV | grep 'inet addr:' | cut -d: -f2 | cut -d\  -f1`;
-		IP=`/sbin/ifconfig $ETH_DEV | grep 'inet ' | awk '{print $2}' | cut -d: -f2`;
+		IP=`/sbin/ifconfig $ETH_DEV | grep 'inet addr:' | cut -d: -f2 | cut -d\  -f1`;
 	fi
 
 	NM=`/sbin/ifconfig $ETH_DEV | grep 'Mask:' | cut -d: -f4`;	
 fi
 
 if [ $CMD_LINE -eq 0 ]; then
-
-	#echo -n "Your external IP: ";
-	#wget -q -O - http://myip.directadmin.com
-	#echo "";
-	#echo "The external IP should typically match your license IP.";
-	#echo "";
 
 	if [ "$IP" = "" ]; then
 		yesno="n";
@@ -891,8 +840,7 @@ FLEX=`checkFile /usr/bin/flex`;
 WEBALIZER=`checkFile $BIN_DIR/webalizer`;
 BIND=`checkFile /usr/sbin/named`;
 PATCH=`checkFile /usr/bin/patch`;
-SSL_H=/usr/include/openssl/ssl.h
-SSL_DEVEL=`checkFile ${SSL_H}`;
+SSL_DEVEL=`checkFile /usr/include/openssl/ssl.h`;
 WGET=`checkFile $BIN_DIR/wget`;
 WGET_PATH=$BIN_DIR/wget;
 KRB5=`checkFile /usr/kerberos/include/krb5.h`;
@@ -1138,7 +1086,7 @@ addPackage()
 
 		if [ "$2" = "" ]; then
 			echo "";
-			#echo "*** the value for $1 is empty.  It needs to be added manually ***"
+			echo "*** the value for $1 is empty.  It needs to be added manually ***"
 			echo "";
 			return;
 		fi
@@ -1315,7 +1263,7 @@ if [ "$OS" != "FreeBSD" ] && [ "$OS" != "debian" ]; then
 		echo "Template installed.";
         fi
 
-	#chown named:named ${RNDCKEY}	
+	
 fi
 
 if [ "$OS" = "FreeBSD" ]; then
@@ -1523,7 +1471,6 @@ fi
 
 echo "[mysqld]" > $MYCNF;
 echo "local-infile=0" >> $MYCNF;
-echo "innodb_file_per_table" >> $MYCNF;
 
 #we don't want conflicts
 if [ -e /etc/debian_version ]; then
@@ -1577,7 +1524,8 @@ if [ "${INSECURE}" -eq 1 ]; then
         EXTRA_VALUE='&insecure=yes'
 fi
 
-#$BIN_DIR/wget $WGET_OPTION -S -O $DA_PATH/update.tar.gz $BIND_ADDRESS "${HTTP}://www.directadmin.com/cgi-bin/daupdate?uid=$CID&lid=$LID${EXTRA_VALUE}"
+#$BIN_DIR/wget $WGET_OPTION -O $DA_PATH/update.tar.gz $BIND_ADDRESS ${HTTP}://www.directadmin.com/cgi-bin/daupdate?uid=$CID\&lid=$LID${EXTRA_VALUE}
+#cp update2.tar.gz $DA_PATH/update.tar.gz
 
 #if [ ! -e $DA_PATH/update.tar.gz ]; then
 #	echo "Unable to download $DA_PATH/update.tar.gz";
