@@ -529,7 +529,7 @@ do
 	echo -n "Please enter your License ID : ";
 	read LID;
 
-	echo "Please enter your hostname (server.domain.com)";
+	echo -e "Please enter your hostname \(server.domain.com\)";
 	echo "It must be a Fully Qualified Domain Name";
 	echo "Do *not* use a domain you plan on using for the hostname:";
 	echo "eg. don't use domain.com. Use server.domain.com instead.";
