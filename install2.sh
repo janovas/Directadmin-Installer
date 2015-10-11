@@ -564,29 +564,6 @@ fi
 
 ## Get the ethernet_dev
 
-#clean_dev()
-#{
-#	C=`echo $1 | grep -o ":" | wc -l`
-#
-#	if [ "${C}" -eq 0 ]; then
-#		echo $1;
-#		return;
-#	fi
-#
-#	if [ "${C}" -ge 2 ]; then
-#		echo $1 | cut -d: -f1,2
-#		return;
-#	fi
-#
-#	TAIL=`echo $1 | cut -d: -f2`
-#	if [ "${TAIL}" = "" ]; then
-#		echo $1 | cut -d: -f1
-#		return;
-#	fi
-#
-#	echo $1
-#}
-
 
 if [ $OS = "FreeBSD" ]; then
 
