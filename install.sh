@@ -320,7 +320,9 @@ elif [ $B64 -eq 1 ]; then
 			;;
 		5|5.0|5.1|5.2|5.3|5.4|5.5|5.6|5.7|5.8|5.9|5.10) SERVICES=services_es50_64.tar.gz
 			;;
-		6|6.0|6.1|6.2|6.3|6.4|6.5|6.6|6.7|6.8) SERVICES=services_es60_64.tar.gz
+		6|6.0|6.1|6.2|6.3|6.4|6.5|6.6|6.7|6.8|6.9|6.10) SERVICES=services_es60_64.tar.gz
+			;;
+		7|6.0|7.1|7.2|7.3|7.4) SERVICES=services_es70_64.tar.gz
 	esac
 else
 	case "$OS_VER" in
@@ -338,7 +340,9 @@ else
 			;;
 		5|5.0|5.1|5.2|5.3|5.4|5.5|5.6|5.7|5.8|5.9|5.10) SERVICES=services_es50.tar.gz
 			;;
-		6|6.0|6.1|6.2|6.3|6.4|6.5|6.6|6.7|6.8) SERVICES=services_es60.tar.gz
+		6|6.0|6.1|6.2|6.3|6.4|6.5|6.6|6.7|6.8|6.9|6.10) SERVICES=services_es60.tar.gz
+			;;
+		7|7.0|7.1|7.2|7.3|7.4) SERVICES=services_es70.tar.gz
 	esac
 
 fi
@@ -376,9 +380,11 @@ if [ "$SERVICES" = "" ]; then
 		echo "  services_es40.tar.gz";
 		echo "  services_es50.tar.gz";
 		echo "  services_es60.tar.gz";
+		echo "  services_es70.tar.gz";
 		echo "  services_es41_64.tar.gz";
 		echo "  services_es50_64.tar.gz";
 		echo "  services_es60_64.tar.gz";
+		echo "  services_es70_64.tar.gz";
 		echo "";
 		echo "FreeBSD:";
 		echo "  services_freebsd48.tar.gz";
